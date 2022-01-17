@@ -103,7 +103,7 @@ const getMoviesStars = ({}: Request, res: Response) => {
 const deleteMovie = async (req: Request, res: Response) => {
   const id = parseInt(req.params.id)
   {
-    if (validateNumber(id)) {
+    if (!validateNumber(id)) {
       return badRequest(res, 'ID inválido')
     }
     const movieSaved = await movieModel.getMovie(id)
@@ -116,6 +116,7 @@ const deleteMovie = async (req: Request, res: Response) => {
     .then(() => {
       ok(res)
     })
+
     .catch(err => internalServerError(res, err))
 }
 
